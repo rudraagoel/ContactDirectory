@@ -54,74 +54,74 @@ class CLI_UI:
                 exit()
             
    
-def Browse_Page(self):
-    choices = [
-        Choice(title="Back to Main Menu", value="back"),
-        Separator(),
-        Choice(title="Search Contacts", value="search"),
-        Choice(title="Sort Contacts", value="sort"),
-        Separator()
-    ]
+    def Browse_Page(self):
+        choices = [
+            Choice(title="Back to Main Menu", value="back"),
+            Separator(),
+            Choice(title="Search Contacts", value="search"),
+            Choice(title="Sort Contacts", value="sort"),
+            Separator()
+        ]
 
-    for i, contact in enumerate(self.contact_directory.Contacts):
-        choices.append(Choice(title=contact.Name, value=i))
+        for i, contact in enumerate(self.contact_directory.Contacts):
+            choices.append(Choice(title=contact.Name, value=i))
 
-    subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+        subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
-    Browse = questionary.select(
-        "Browse Contacts",
-        choices=choices
-    ).ask()
+        Browse = questionary.select(
+            "Browse Contacts",
+            choices=choices
+        ).ask()
 
-    if Browse == "back":
-        pprint(CLI_UI.Start_Page(self))
+        if Browse == "back":
+            pprint(CLI_UI.Start_Page(self))
 
-    elif Browse == "search":
-        query = questionary.text("Search:").ask()
+        elif Browse == "search":
+            query = questionary.text("Search:").ask()
 
-        results = self.contact_directory.search_contacts(query)
+            results = self.contact_directory.search_contacts(query)
 
-        if results:
-            selected = questionary.select(
-                "Search Results",
+            if results:
+                selected = questionary.select(
+                    "Search Results",
+                    choices=[
+                        Choice(title=c.Name, value=c.ID)
+                        for c in results
+                    ]
+                ).ask()
+
+                if selected is not None:
+                    contact = next(
+                        c for c in self.contact_directory.Contacts
+                        if c.ID == selected
+                    )
+                    self.ShowContact(contact)
+            else:
+                print("No contacts found!")
+                input("Press Enter to continue...")
+
+            self.Browse_Page()
+
+        elif Browse == "sort":
+            sorting = questionary.select(
+                "Sort Contacts",
                 choices=[
-                    Choice(title=c.Name, value=c.ID)
-                    for c in results
+                    Choice(title="Name (A-Z)", value="name_asc"),
+                    Choice(title="Name (Z-A)", value="name_desc"),
+                    Choice(title="Newest First", value="newest"),
+                    Choice(title="Oldest First", value="oldest"),
                 ]
             ).ask()
 
-            if selected is not None:
-                contact = next(
-                    c for c in self.contact_directory.Contacts
-                    if c.ID == selected
-                )
-                self.ShowContact(contact)
-        else:
-            print("No contacts found!")
-            input("Press Enter to continue...")
+            if sorting is not None:
+                self.contact_directory.sort_contacts(sorting)
 
-        self.Browse_Page()
+            self.Browse_Page()
 
-    elif Browse == "sort":
-        sorting = questionary.select(
-            "Sort Contacts",
-            choices=[
-                Choice(title="Name (A-Z)", value="name_asc"),
-                Choice(title="Name (Z-A)", value="name_desc"),
-                Choice(title="Newest First", value="newest"),
-                Choice(title="Oldest First", value="oldest"),
-            ]
-        ).ask()
-
-        if sorting is not None:
-            self.contact_directory.sort_contacts(sorting)
-
-        self.Browse_Page()
-
-    elif isinstance(Browse, int):
-        self.ShowContact(
-            self.contact_directory.Contacts[Browse]
-        )
+        elif isinstance(Browse, int):
+            self.ShowContact(
+                self.contact_directory.Contacts[Browse]
+            )
 
     def ShowContact(self, contact):
         
@@ -129,10 +129,11 @@ def Browse_Page(self):
         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
         print("Name: " + contact.Name)
-        
+        print(f"Birthday: {contact.Birthday if contact.Birthday else 'Not specified'}")
         print("Phone Number: " + f"{contact.Phone_Number}")
         print("Email: " + contact.EMAIL)
         print("Address: " + contact.Address)
+        print("Company Title: " + contact.Company_Title)
         print("Notes: " + str(contact.Notes))
         print("Social Media Handles: ")
         
@@ -178,5 +179,5 @@ def run():
 
 if __name__ == "__main__":
     run()
-# better ui 
-# write readme
+    
+

@@ -2,7 +2,7 @@
 import json
 import os
 import uuid as uid
-
+import datetime
 from contact import Contact, SocialHandle
 
 
@@ -18,10 +18,12 @@ class ContactDirectory:
         for contact in self.Contacts:
             data.append({
                 "Name": contact.Name,
+                "Birthday": contact.Birthday.isoformat() if contact.Birthday else None,  
                 "ID": str(contact.ID),
                 "Phone_Number": contact.Phone_Number,
                 "EMAIL": contact.EMAIL,
                 "Address": contact.Address,
+                "Company_Title": contact.Company_Title,
                 "Notes": contact.Notes,
                 "SocialMediaHandles": [
                     {
@@ -53,27 +55,32 @@ class ContactDirectory:
 
             contact = Contact(
                 item["Name"],
+                datetime.datetime.strptime(item["Birthday"], "%Y-%m-%d").date() if item.get("Birthday") else None,
                 uid.UUID(item["ID"]),
                 item["Phone_Number"],
                 item["EMAIL"],
                 item["Address"],
+                item.get("Company_Title", ""),
                 item["Notes"],
                 handles
             )
 
             self.Contacts.append(contact)
 
-    def add_contact(self, NAME, ID, PHONE_NUMBER, EMAIL, ADDRESS, NOTES, SOCIAL_MEDIA_HANDLES):
-        contact = Contact(NAME, ID, PHONE_NUMBER, EMAIL, ADDRESS, NOTES, SOCIAL_MEDIA_HANDLES)
+    def add_contact(self, NAME,Birthday, ID, PHONE_NUMBER, EMAIL, ADDRESS, COMPANY_TITLE, NOTES, SOCIAL_MEDIA_HANDLES):
+        contact = Contact(NAME, Birthday, ID, PHONE_NUMBER, EMAIL, ADDRESS, COMPANY_TITLE, NOTES, SOCIAL_MEDIA_HANDLES)
 
         self.Contacts.append(contact)
         self.save_contacts()
 
     def create_contact(self):
         Name = input("Enter Name: ")
+        Birthday = input("Enter Birthday (YYYY-MM-DD): ")
+        Birthday = datetime.datetime.strptime(Birthday, "%Y-%m-%d").date() if Birthday else None
         Phone_Number = input("Enter Phone Number: ")
         email = input("Enter Email: ")
         Address = input("Enter Address: ")
+        Company_Title = input("Enter Company Title: ")
 
         Notes = input("Enter Notes (Seperated by ;): ")
         notes_array = Notes.split(";")
@@ -92,7 +99,7 @@ class ContactDirectory:
 
                 social_media_handles_array.append(SocialHandle(PLF_Name, Handle))
 
-        self.add_contact(Name, uid.uuid4(), Phone_Number, email, Address, notes_array, social_media_handles_array)
+        self.add_contact(Name, Birthday, uid.uuid4(), Phone_Number, email, Address, Company_Title, notes_array, social_media_handles_array)
 
     def remove_contact(self, ID):
         for i in range(len(self.Contacts)):
@@ -111,6 +118,9 @@ class ContactDirectory:
 
                 if Name != "":
                     self.Contacts[i].Name = Name
+                Birthday = input("Enter Birthday (YYYY-MM-DD) (empty for no change): ")
+                if Birthday != "":
+                    self.Contacts[i].Birthday = datetime.datetime.strptime(Birthday, "%Y-%m-%d").date()
 
                 Phone_Number = input("Enter Phone Number (empty for no change): ")
 
@@ -126,6 +136,10 @@ class ContactDirectory:
 
                 if Address != "":
                     self.Contacts[i].Address = Address
+                
+                Company_Title = input("Enter Company Title (empty for no change): ")
+                if Company_Title != "":
+                    self.Contacts[i].Company_Title = Company_Title
 
                 Notes = input("Enter Notes (Separated by ;) (empty for no change), end with '--' to remove previous notes: ")
 
