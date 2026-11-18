@@ -14,9 +14,7 @@ class ContactDirectory:
             contact = Contact(NAME,ID, PHONE_NUMBER, EMAIL, ADDRESS, NOTES, SOCIAL_MEDIA_HANDLES)
             
             self.Contacts = np.append(self.Contacts, contact)
-            print("Contact Added Successfully!")
-            print("Name: " + contact.Name)
-            print(contact.ID)
+            
     def create_contact(self):
         Name = input("Enter Name: ")
         Phone_Number = input("Enter Phone Number: ")
