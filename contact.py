@@ -3,6 +3,7 @@ import uuid as uid
 
 class Contact:
     Name = ""
+    
     ID: uid = uid.uuid4()
     Phone_Number = +1-123-456-7890
     EMAIL = ""

@@ -13,20 +13,11 @@ from questionary import Separator
 from questionary import prompt
 
 class CLI_UI:
-    contact = Contact(
-                    "John Smith",
-                    uid.uuid4(),
-                    +1-233-255-454,
-                    "johnsmith@smiths.com",
-                    "Smith St. - House 225",
-                np.append(Contact.Notes, "string"),
-                np.append(Contact.SocialMediaHandles, SocialHandle("Facebook", "Boomer_JohnSmith"))
-            )
+   
     Contact_Directory = ContactDirectory()
     current_path = "/"  
     def __init__(self):
         self.contact_directory = ContactDirectory()
-        self.contact_directory.Contacts = np.append( self.contact_directory.Contacts, self.contact)
         
         
         self.current_path = "/"
@@ -90,6 +81,7 @@ class CLI_UI:
         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
         print("Name: " + contact.Name)
+        
         print("Phone Number: " + f"{contact.Phone_Number}")
         print("Email: " + contact.EMAIL)
         print("Address: " + contact.Address)
@@ -134,10 +126,5 @@ class CLI_UI:
         
 pprint(CLI_UI.Start_Page(self=CLI_UI()))
 
-# rendering browsing contacts : done
-# removal of contacts: done
-# add contacts: works
-# update contacts: works
-# match cases for close app, search contact and  add cotnact
-# actively maintaining path and contact list 
-# saving the contacts to a file
+# better ui 
+# write readme
