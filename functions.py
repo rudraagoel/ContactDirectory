@@ -5,6 +5,7 @@ from contact import SocialHandle
 import contact
 import contact
 import uuid as uid
+
 class ContactDirectory:
     Contacts = np.array([], dtype=object)
     def __init__(self):
@@ -24,7 +25,7 @@ class ContactDirectory:
         Notes = input("Enter Notes ( Seperated by ;): ")
         notes_array = np.array(Notes.split(";"), dtype=str)
         
-        SocialMediaHandles = input("Enter Social Media Handles (Example: 'TWITTER RUDRAGOELGGG', seperated by comma): ")
+        SocialMediaHandles = input("Enter Social Media Handles (Example: 'TWITTER elonmusk', seperated by comma): ")
         social_media_array = np.array(SocialMediaHandles.split(","), dtype=str)
         social_media_handles_array = np.array([], dtype=object)
         for i in range(len(social_media_array)):
@@ -65,10 +66,13 @@ class ContactDirectory:
                     self.Contacts[i].Address = Address
                 Notes = input("Enter Notes ( Seperated by ;) (empty for no change), end with '--' to remove previous notes:" )
                 if Notes != "":
-                    if Notes.strip() == "--":
+                        UpdatedNotes = Notes.strip("--")
                         self.Contacts[i].Notes = np.array([], dtype=str)
-                    notes_array = np.array(Notes.split(";"), dtype=str)
-                    self.Contacts[i].Notes = notes_array
+                        notes_array = np.array([UpdatedNotes.split(";")], dtype=str)
+                        
+                        self.Contacts[i].Notes = notes_array
+                    
+                        np.append(self.Contacts[i].Notes, notes_array)
                 SocialMediaHandles = input("Enter Social Media Handles (Example: 'TWITTER RUDRAGOELGGG', seperated by comma) (empty for no change), end with '--' to remove previous social media handles: ")
                 if SocialMediaHandles != "":
                     if SocialMediaHandles.strip() == "--":

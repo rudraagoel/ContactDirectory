@@ -34,6 +34,7 @@ class SocialHandle:
     TEMPLATE CONTACT OBJECT
         Contact1 = Contact(
             "John Smith",
+            uid.uuid4(),
             +1-233-255-454,
             "johnsmith@smiths.com",
             "Smith St. - House 225",
