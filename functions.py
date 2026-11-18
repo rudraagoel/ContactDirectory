@@ -157,3 +157,30 @@ class ContactDirectory:
 
                 self.save_contacts()
                 return
+    
+    def search_contacts(self, query):
+        query = query.lower().strip()
+
+        return [
+            contact for contact in self.Contacts
+            if query in contact.Name.lower()
+            or query in contact.Phone_Number.lower()
+            or query in contact.EMAIL.lower()
+        ]
+
+
+    def sort_contacts(self, sort_by):
+        if sort_by == "name_asc":
+            self.Contacts.sort(key=lambda contact: contact.Name.lower())
+
+        elif sort_by == "name_desc":
+            self.Contacts.sort(key=lambda contact: contact.Name.lower(), reverse=True)
+
+        elif sort_by == "newest":
+            self.Contacts.reverse()
+
+        elif sort_by == "oldest":
+            pass
+
+        self.save_contacts()
+

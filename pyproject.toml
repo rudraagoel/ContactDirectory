@@ -1,0 +1,19 @@
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "contact-directory"
+version = "1.0.0"
+dependencies = [
+    "questionary",
+    "qrcode",
+    "numpy"
+]
+
+[project.scripts]
+contacts = "cli_browser:run"
+
+[tool.setuptools]
+py-modules = ["cli_browser", "contact", "functions"]

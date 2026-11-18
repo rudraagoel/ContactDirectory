@@ -1,0 +1,11 @@
+README
+cli_browser.py
+contact.py
+functions.py
+pyproject.toml
+contact_directory.egg-info/PKG-INFO
+contact_directory.egg-info/SOURCES.txt
+contact_directory.egg-info/dependency_links.txt
+contact_directory.egg-info/entry_points.txt
+contact_directory.egg-info/requires.txt
+contact_directory.egg-info/top_level.txt

@@ -53,28 +53,76 @@ class CLI_UI:
 
                 exit()
             
+   
     def Browse_Page(self):
-        ContactIndex = {}
-        choices = [Choice(title="Back to Main Menu", value=-1)]
-        for(i, contact) in enumerate(self.contact_directory.Contacts):
-            ContactIndex[i] = contact
-            choices.append(Choice(title=f"{contact.Name}", value=i+1))
-        if len(choices) == 0:
-            choices.append(Choice(title="No Contacts Found, Press enter to return to Main Menu", value=-1))
+        choices = [
+            Choice(title="Back to Main Menu", value="back"),
+            Separator(),
+            Choice(title="Search Contacts", value="search"),
+            Choice(title="Sort Contacts", value="sort"),
+            Separator()
+        ]
+
+        for i, contact in enumerate(self.contact_directory.Contacts):
+            choices.append(Choice(title=contact.Name, value=i))
+
         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
         Browse = questionary.select(
-                "Browse Contacts",
-                choices=choices
+            "Browse Contacts",
+            choices=choices
+        ).ask()
+
+        if Browse == "back":
+            pprint(CLI_UI.Start_Page(self))
+
+        elif Browse == "search":
+            query = questionary.text("Search:").ask()
+
+            results = self.contact_directory.search_contacts(query)
+
+            if results:
+                selected = questionary.select(
+                    "Search Results",
+                    choices=[
+                        Choice(title=c.Name, value=c.ID)
+                        for c in results
+                    ]
                 ).ask()
-        if(Browse != -1):
-                    
-                    CLI_UI.current_path = "/"
-                    CLI_UI.ShowContact(self, contact=self.contact_directory.Contacts[Browse-1])
-        else:
-            
-                    CLI_UI.current_path = "/"
-                    pprint(CLI_UI.Start_Page(self))
+
+                if selected is not None:
+                    contact = next(
+                        c for c in self.contact_directory.Contacts
+                        if c.ID == selected
+                    )
+                    self.ShowContact(contact)
+            else:
+                print("No contacts found!")
+                input("Press Enter to continue...")
+
+            self.Browse_Page()
+
+        elif Browse == "sort":
+            sorting = questionary.select(
+                "Sort Contacts",
+                choices=[
+                    Choice(title="Name (A-Z)", value="name_asc"),
+                    Choice(title="Name (Z-A)", value="name_desc"),
+                    Choice(title="Newest First", value="newest"),
+                    Choice(title="Oldest First", value="oldest"),
+                ]
+            ).ask()
+
+            if sorting is not None:
+                self.contact_directory.sort_contacts(sorting)
+
+            self.Browse_Page()
+
+        elif isinstance(Browse, int):
+            self.ShowContact(
+                self.contact_directory.Contacts[Browse]
+            )
+
     def ShowContact(self, contact):
         
         
@@ -124,7 +172,11 @@ class CLI_UI:
                 
         
         
-pprint(CLI_UI.Start_Page(self=CLI_UI()))
+def run():
+    CLI_UI().Start_Page()
 
+
+if __name__ == "__main__":
+    run()
 # better ui 
 # write readme
