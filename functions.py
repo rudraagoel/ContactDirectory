@@ -2,11 +2,18 @@ import numpy as np
 
 from contact import Contact
 from contact import SocialHandle
+import contact
+import contact
 class ContactDirectory:
     Contacts = np.array([], dtype=object)
     def __init__(self):
         self.Contacts = np.array([], dtype=object)
-    
+    def add_contact(self, NAME, PHONE_NUMBER, EMAIL, ADDRESS, NOTES, SOCIAL_MEDIA_HANDLES):
+            contact = Contact(NAME, PHONE_NUMBER, EMAIL, ADDRESS, NOTES, SOCIAL_MEDIA_HANDLES)
+            
+            self.Contacts = np.append(self.Contacts, contact)
+            print("Contact Added Successfully!")
+            print("Name: " + contact.Name)
     def create_contact(self):
         Name = input("Enter Name: ")
         Phone_Number = input("Enter Phone Number: ")
@@ -27,11 +34,10 @@ class ContactDirectory:
             Handle = Split_String[1]
             social_media_handles_array = np.append(social_media_handles_array, SocialHandle(PLF_Name, Handle))
         
-            
+        self.add_contact(Name, Phone_Number, email, Address, notes_array, social_media_handles_array)
             
         
     
-    # def add_contact(self, contact):
-    
 ContactDirectory().create_contact()
+
         
