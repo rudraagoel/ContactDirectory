@@ -1,10 +1,25 @@
 [
     {
+        "Name": "rudra goel",
+        "Birthday": "2012-11-10",
+        "ID": "b3cbce9c-3a71-44f6-a6b4-cb40ed835a0b",
+        "Phone_Number": "",
+        "EMAIL": "",
+        "Address": "",
+        "Company_Title": "",
+        "Notes": [
+            ""
+        ],
+        "SocialMediaHandles": []
+    },
+    {
         "Name": "RUDRA GOEL",
+        "Birthday": null,
         "ID": "461053c0-9b5d-43cc-b93e-9f1f9f4e7056",
         "Phone_Number": "9999999",
         "EMAIL": "",
         "Address": "",
+        "Company_Title": "",
         "Notes": [
             ""
         ],

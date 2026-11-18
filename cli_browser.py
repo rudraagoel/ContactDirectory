@@ -129,10 +129,11 @@ class CLI_UI:
         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
 
         print("Name: " + contact.Name)
-        
+        print(f"Birthday: {contact.Birthday if contact.Birthday else 'Not specified'}")
         print("Phone Number: " + f"{contact.Phone_Number}")
         print("Email: " + contact.EMAIL)
         print("Address: " + contact.Address)
+        print("Company Title: " + contact.Company_Title)
         print("Notes: " + str(contact.Notes))
         print("Social Media Handles: ")
         
@@ -178,4 +179,5 @@ def run():
 
 if __name__ == "__main__":
     run()
-# write readme
+    
+
