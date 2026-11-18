@@ -178,5 +178,4 @@ def run():
 
 if __name__ == "__main__":
     run()
-# better ui 
 # write readme

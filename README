@@ -1,0 +1,108 @@
+# Contacts Directory
+A simple, interactive CLI tool for Contacts!
+Built with python. Store, browse, search and sort your contacts directly from your terminal! (Super good for users who wanna larp linux. It just gives that vibe)
+
+## Description
+Hello, Reader!
+I'm **Rudra Goel**, and this is **Contacts Directory**, a contact's app that lives entirely in your terminal. Has persistance too btw! 
+
+Each Contact can have:
+- Name
+- Phone Number
+- Email Address
+- Physical Address
+- Notes
+- Social Media Handles
+
+The application uses an interactive terminal interface to navigate through your contacts
+
+## Features
+- **Add Contacts:**: Create new contacts with information, notes and handles! 
+- **Browse Contacts:** Yes!! In a contacts app, you can browse the contacts you just added and it has the option to sort, search and just view!! Can you believe it??!! Just because It's CLI, doesn't mean its special. Still a contact app bruh.
+- **QR Code Generation:** Finally a unique feature, yes.. I have officially revolutionised the contacts app, in a CLI and that too with a QR when scanned opens the option to call the person! 
+- **Update Contacts:** You can update your contact without having to remove your contact and add them again! SO ORIGINAL I KNOW!!
+- **Persistent Storage:** Save and load contacts automatically using a local JSON file.
+- **Social Media Handles:** Store multiple social media platforms and their corresponding usernames for each contact.
+
+
+### Screenshots
+<img src="SS_1.png"></img>
+<img src="SS_2.png"></img>
+<img src="SS_3.png"></img>
+
+## Getting Started
+### Dependencies
+Before Installing, make sure you have:
+- Python 3.10 or newer. 
+- PIP
+- A machine running Windows Terminal
+The project uses the following Python libraries:
+
+| Library | Purpose |
+|---|---|
+| `questionary` | Interactive terminal menus and prompts |
+| `qrcode` | QR code generation |
+| `numpy` | Array handling for contact data |
+
+These dependencies are automatically installed when installing the project.
+
+### Installing
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/rudraagoel/ContactDirectory.git
+```
+
+**2. Navigate into the project directory**
+
+```bash
+cd ContactDirectory
+```
+
+**3. Install the project**
+
+```bash
+python -m pip install .
+```
+
+This installs the application and its required dependencies.
+
+### Executing Program
+
+Once installation is complete, you can launch the application using its registered command:
+
+```bash
+contacts
+```
+
+Alternatively, you can run the application directly from the project directory:
+
+```bash
+python cli_browser.py
+```
+
+## Help
+
+Having trouble? Here are a few things to check:
+
+- **`contacts` is not recognized:** Make sure the installation completed successfully. You can also run `python cli_browser.py` directly from the project directory.
+- **Missing dependencies:** Run `python -m pip install .` again.
+- **Contacts aren't appearing:** Check that `contacts.json` exists in the project directory.
+- **Terminal interface issues:** Make sure you're running the application in a terminal that supports interactive prompts.
+- **QR codes aren't displaying:** Check that the `qrcode` dependency is installed correctly.
+
+For additional information, visit the [GitHub repository](https://github.com/rudraagoel/ContactDirectory).
+DM @rudraagoyel on instagram or Rudra Goel on slack for help!
+
+## License
+
+GNU License V3.0
+
+---
+
+**Built by Rudra Goel.**
+
+A little project to get back into Python, classes, data structures, and building things from scratch.
+
+Thanks for checking it out!
